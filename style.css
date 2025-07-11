@@ -1,0 +1,1242 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    /* 主要な色の定義 */
+    --primary-color: #4A90E2; /* 青系 */
+    --secondary-color: #50E3C2; /* エメラルドグリーン系 */
+    --text-color-dark: #333;
+    --text-color-light: #555;
+    --bg-light: #f8f9fa;
+    --bg-medium: #e9ecef;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+
+    /* メッセージの色 */
+    --success-bg: #d4edda;
+    --success-text: #155724;
+    --success-border: #badbcc;
+    --error-bg: #f8d7da;
+    --error-text: #721c24;
+    --error-border: #f5c6cb;
+    --info-text: #007bff;
+}
+
+body {
+    font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    color: var(--text-color-dark);
+    min-height: 100vh;
+    box-sizing: border-box;
+    line-height: 1.6;
+}
+
+/* ページ全体のコンテナ */
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto; /* 上下のマージンと中央揃え */
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-medium);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 35px;
+    font-size: 2.5em;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--bg-medium);
+}
+
+/* 検索フォームのCSS */
+.search-container {
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    padding: 25px;
+    background-color: var(--bg-medium);
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.search-container form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+}
+.search-container input[type="text"] {
+    flex-grow: 1;
+    min-width: 220px;
+    padding: 12px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.05em;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    color: var(--text-color-dark);
+}
+.search-container input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+.search-container button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.search-container button[type="submit"]:hover {
+    background-color: #3a7dc4;
+    transform: translateY(-1px);
+}
+.search-container .clear-search {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.search-container .clear-search:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+
+/* ブックマークリストのCSS */
+.bookmark-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid; /* グリッドレイアウト */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 可変グリッド */
+    gap: 25px; /* カード間の隙間 */
+}
+.bookmark-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bookmark-card:hover {
+    transform: translateY(-5px); /* ホバーで少し浮き上がる */
+    box-shadow: 0 8px 25px var(--shadow-medium);
+}
+.bookmark-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.bookmark-card h3 a {
+    color: var(--primary-color);
+    text-decoration: none;
+    word-break: break-word; /* 長いURLやタイトルがはみ出さないように */
+}
+.bookmark-card h3 a:hover {
+    text-decoration: underline;
+}
+.bookmark-card .url {
+    font-size: 0.85em;
+    color: var(--text-color-light);
+    margin-bottom: 15px;
+    word-break: break-all; /* URLが長い場合に改行 */
+}
+.bookmark-card .description {
+    font-size: 0.95em;
+    color: var(--text-color-light);
+    margin-bottom: 15px;
+    flex-grow: 1; /* 説明文が伸びてカードの高さを揃える */
+    overflow: hidden; /* はみ出した部分を隠す */
+    text-overflow: ellipsis; /* 省略記号 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 3行で省略 */
+    -webkit-box-orient: vertical;
+}
+.bookmark-card .tags {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--bg-medium);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.bookmark-card .tag {
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 0.8em;
+    padding: 6px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    text-transform: capitalize; /* 先頭を大文字にする */
+}
+
+/* ここから bookmark-actions の新しいスタイル */
+.bookmark-actions {
+    display: flex;
+    flex-direction: column; /* 要素を縦方向に配置 */
+    align-items: flex-start; /* 左端に要素を揃える */
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid var(--bg-medium);
+    width: 100%;
+    box-sizing: border-box;
+    gap: 8px; /* 縦方向の要素間の隙間 */
+}
+
+/* 日付、ユーザー名、公開ステータスをまとめるコンテナ */
+.bookmark-actions .date-info {
+    font-size: 0.75em;
+    color: #999;
+    white-space: nowrap; /* このブロック内のテキストは改行しない */
+    overflow: hidden; /* はみ出たテキストは隠す */
+    text-overflow: ellipsis; /* はみ出たテキストは省略記号で表示 */
+    width: 100%; /* 親要素の幅いっぱいに広げる */
+    display: flex; /* 内部要素 (日付、ユーザー名、公開ステータス) を横並びに */
+    align-items: center; /* 内部要素を垂直中央揃え */
+    /* gap: 5px; */ /* date-info内の要素間の隙間 (必要ならコメントを外す) */
+}
+
+/* 公開ステータスの表示 */
+.bookmark-actions .public-status {
+    background-color: #28a745;
+    color: white;
+    font-size: 0.7em;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-left: 5px; /* 日付情報との間隔 */
+    white-space: nowrap; /* ラベルが途中で改行されないように */
+    flex-shrink: 0; /* 縮小しない */
+}
+
+/* 編集・削除ボタンのコンテナ (public_bookmarks.phpでは通常表示されないが、念のため残す) */
+.bookmark-actions .buttons {
+    display: flex; /* ボタンを横並びに配置 */
+    gap: 8px; /* ボタン間の隙間 */
+    flex-shrink: 0; /* ボタンのグループは縮小しない */
+    white-space: nowrap; /* ボタン全体が改行されないように */
+    width: 100%; /* 親要素の幅いっぱいに広げる */
+    justify-content: flex-end; /* ボタンを右端に寄せる */
+}
+
+/* 編集・削除ボタンの共通スタイル */
+.bookmark-actions .buttons a,
+.bookmark-actions .buttons button {
+    display: inline-block;
+    padding: 6px 10px; /* ボタンのパディングを少し調整 */
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8em; /* ボタンのフォントサイズを調整 */
+    font-weight: normal;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap; /* ボタン内のテキストが改行されないように */
+}
+
+.bookmark-actions .buttons .edit-button {
+    background-color: #6c757d; /* グレー */
+    color: white;
+}
+.bookmark-actions .buttons .edit-button:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px); /* ホバー時の浮き上がり効果を維持 */
+}
+
+.bookmark-actions .buttons .delete-button {
+    background-color: #dc3545; /* 赤 */
+    color: white;
+}
+.bookmark-actions .buttons .delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px); /* ホバー時の浮き上がり効果を維持 */
+}
+/* ここまで bookmark-actions の新しいスタイル */
+
+
+/* add/edit.php フォーム共通のCSS */
+.bookmark-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.form-section {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 10px var(--shadow-light);
+}
+.form-section h2 {
+    font-size: 1.4em;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
+}
+.form-group {
+    margin-bottom: 18px;
+    position: relative;
+}
+.form-group:last-child {
+    margin-bottom: 0;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color-dark);
+    font-size: 0.95em;
+}
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group textarea {
+    width: calc(100% - 24px); /* パディングを考慮 */
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* URL入力グループのスタイル */
+.url-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.url-input-group input[type="url"] {
+    flex-grow: 1;
+    width: auto;
+}
+
+/* 自動取得ボタンのスタイル */
+.fetch-button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px 18px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.fetch-button:hover {
+    background-color: #40c4a4;
+    transform: translateY(-1px);
+}
+.fetch-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ヘルプテキスト */
+.help-text {
+    display: block;
+    font-size: 0.8em;
+    color: var(--text-color-light);
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+/* フォームアクションボタン群 */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* 新しいブックマークを追加ボタンのコンテナ */
+.add-button {
+    text-align: center; /* ボタンを中央寄せにする */
+    margin: 20px 0; /* 上下の余白 */
+}
+
+.submit-button,
+/* 共通ボタンのスタイル */
+.common-button {
+    display: inline-block; /* インラインブロック要素として幅と高さを設定可能に */
+    padding: 12px 25px; /* ボタン内の余白 */
+    background-color: #28a745; /* ★重要な背景色 (緑色) */
+    color: white; /* ★重要な文字色 */
+    border-radius: 8px;
+    text-decoration: none; /* 下線を消す */
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    border: none; /* ボーダーをなくす */
+    box-sizing: border-box; /* パディングとボーダーを幅・高さに含める */
+}
+
+.common-button:hover {
+    background-color: #218838; /* ホバー時の色 */
+    transform: translateY(-2px); /* 少し上に浮くアニメーション */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+/* 更新ボタンのスタイル */
+.submit-button {
+    background-color: #007bff; /* 青 */
+}
+.submit-button:hover {
+    background-color: #0056b3; /* ホバー時に暗い青に直接指定 */
+}
+
+/* 戻るボタンのスタイル */
+.back-button {
+    background-color: #6c757d; /* グレー */
+}
+.back-button:hover {
+    background-color: #5a6268; /* ホバー時に暗いグレーに直接指定 */
+}
+
+/* common-button のスタイルが既にあるはずなので、info-button 用に色などを定義 */
+.info-button {
+    background-color: #6c757d; /* グレー系の色など */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* リンクなので下線を消す */
+    display: inline-block; /* ボタンのように表示 */
+    margin-left: 10px; /* 他のボタンとの間隔 */
+}
+
+.info-button:hover {
+    background-color: #5a6268;
+}
+
+/* メッセージのスタイル (index.php でも使用) */
+/* メッセージボックスのスタイル */
+.message {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0; /* デフォルトで非表示 */
+    height: 0; /* デフォルトで高さを0に */
+    overflow: hidden; /* 高さが0の時に内容を隠す */
+    transition: opacity 0.4s ease-in-out, height 0.4s ease-in-out, padding 0.4s ease-in-out; /* スムーズな表示/非表示 */
+}
+
+.message.show { /* PHPでメッセージがあるときにこのクラスを追加する */
+    opacity: 1; /* 表示 */
+    height: auto; /* 高さ自動調整 */
+    padding: 15px 20px; /* パディングを元に戻す */
+}
+
+.message.success {
+    background-color: #d4edda; /* 薄い緑 */
+    color: #155724; /* 濃い緑 */
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da; /* 薄い赤 */
+    color: #721c24; /* 濃い赤 */
+    border: 1px solid #f5c6cb;
+}
+/* 追加情報メッセージ */
+.info-message {
+    color: var(--info-text);
+    font-size: 0.85em;
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* スターアイコンのCSS */
+/* star-container は、star-button の親要素として、位置調整に使用します */
+.bookmark-card .star-container {
+    text-align: right; /* 右寄せ */
+    margin-top: -10px; /* タイトルや説明に少し近づける */
+    margin-bottom: 10px; /* 下の要素との間隔 */
+}
+
+/* スターボタン本体 */
+.star-button {
+    background: none; /* 背景色なし */
+    border: none; /* 枠線なし */
+    padding: 0; /* パディングなし */
+    margin: 0; /* マージンなし */
+    font-size: 2em; /* アイコンのサイズを大きく設定 */
+    cursor: pointer;
+    line-height: 1; /* アイコンの縦方向の配置を調整 */
+    color: #ffc107; /* デフォルトの星の色 */
+    transition: transform 0.1s ease-in-out;
+}
+
+.star-button:hover {
+    transform: scale(1.1); /* ホバーで少し拡大 */
+}
+
+/* 塗りつぶされたスター（お気に入り状態） */
+.star-icon.fas { /* fas はFont Awesomeの塗りつぶされたアイコンのクラス */
+    color: #FFD700; /* 金色など、お気に入りを示す色 */
+}
+
+/* 輪郭だけのスター（お気に入りではない状態） */
+.star-icon.far { /* far はFont Awesomeの輪郭だけのアイコンのクラス */
+    color: #ccc; /* 薄いグレーなど、強調しない色 */
+}
+
+/* スターアイコンのホバー時の色 */
+.star-icon:hover {
+    color: #FFC107; /* ホバー時の色（少し明るく） */
+}
+/* 塗りつぶされたスターのホバー */
+.star-icon.fas:hover {
+    color: #e6b800 !important; /* 塗りつぶしスターのホバー色*/
+}
+
+/* Font Awesome アイコン表示のための最終的な調整（最下部に追加） */
+.star-icon.fas,
+.star-icon.far {
+    font-family: "Font Awesome 6 Free" !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.star-icon.fas {
+    font-weight: 900 !important;
+}
+
+.star-icon.far {
+    font-weight: 400 !important;
+}
+
+.star-button .star-icon {
+    font-size: inherit;
+    color: inherit;
+}
+
+.star-button:hover .star-icon.far {
+    color: #FFC107 !important;
+}
+
+/* ページネーションのスタイル */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-medium);
+    border-radius: 0 0 10px 10px; /* 下部のみ角丸に */
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 0 5px;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    text-decoration: none;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.pagination-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    pointer-events: none; /* アクティブなページはクリックできないように */
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 25px;
+    }
+    h1 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+    .search-container {
+        padding: 20px;
+        gap: 10px;
+    }
+    .search-container input[type="text"] {
+        min-width: 180px;
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+    .search-container button[type="submit"],
+    .search-container .clear-search {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .bookmark-list {
+        grid-template-columns: 1fr; /* 1列にする */
+        gap: 20px;
+    }
+    .bookmark-card {
+        padding: 18px;
+    }
+    .bookmark-card h3 {
+        font-size: 1.3em;
+    }
+    .bookmark-card .url {
+        font-size: 0.8em;
+    }
+    .bookmark-card .description {
+        font-size: 0.9em;
+    }
+    /* モバイルでのボタンのパディングは維持 */
+    .bookmark-actions .buttons a,
+    .bookmark-actions .buttons button {
+        padding: 7px 12px;
+        font-size: 0.85em;
+    }
+
+    /* フォーム */
+    .form-section {
+        padding: 20px;
+    }
+    .form-section h2 {
+        font-size: 1.3em;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="url"],
+    .form-group textarea {
+        padding: 10px;
+        width: calc(100% - 20px);
+    }
+    .fetch-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    .submit-button,
+    .common-button,
+    .back-button {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+    .add-button a {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    .search-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .search-container form {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    .search-container input[type="text"] {
+        width: 100%;
+        min-width: unset;
+    }
+    .search-container button[type="submit"],
+    .search-container .clear-search {
+        width: 100%;
+    }
+    .url-input-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .url-input-group input[type="url"] {
+        width: 100%;
+    }
+    .fetch-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0; /* flex-direction: columnでgapが適用されるため0にする */
+    }
+
+    /* モバイルでのbookmark-actionsの調整 */
+    .bookmark-actions {
+        flex-direction: column; /* 狭い画面では縦並びにする */
+        align-items: flex-start; /* 左寄せ */
+        gap: 8px; /* 縦方向の隙間を調整 */
+    }
+    .bookmark-actions .date-info {
+        width: 100%; /* 日付情報が全幅を占めるように */
+        min-width: unset; /* 最小幅の制約を解除 */
+    }
+    .bookmark-actions .buttons {
+        width: 100%; /* ボタン群も全幅を占めるように */
+        justify-content: flex-end; /* ボタンを右寄せ */
+    }
+}
+
+
+/* ============================================== */
+/* public_bookmarks.php 専用のスタイル */
+/* ============================================== */
+
+/* 全体的な色の調整 (オプション) */
+:root {
+    --public-primary-color: #FF6B6B; /* 温かい赤系 */
+    --public-secondary-color: #6DC2FF; /* 明るい水色系 */
+    --public-bg-light: #fdf6f0; /* 少しクリームがかった背景 */
+    --public-bg-medium: #ffe0b2; /* 優しいオレンジ系 */
+    --public-card-bg: #ffffff;
+    --public-text-color-dark: #444;
+    --public-text-color-light: #777;
+    --public-border-color: #ffd8a6; /* 優しいボーダー色 */
+    --public-shadow-light: rgba(255, 107, 107, 0.1);
+    --public-shadow-medium: rgba(255, 107, 107, 0.2);
+}
+
+/* public_bookmarks のコンテナに適用する背景色など */
+.public-container {
+    background-color: var(--public-bg-light);
+    box-shadow: 0 8px 30px var(--public-shadow-medium);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+/* タイトル */
+.public-container h1 {
+    color: #FFD700;
+    font-size: 2em; /* 少し小さく */
+    letter-spacing: 0.5px; /* 文字間隔を調整 */
+    margin-bottom: 5px; /* 下のマージンを減らす */
+    border-bottom: none;
+    padding-bottom: 0;
+    text-align: center; /* 中央寄せ */
+}
+
+.public-container .app-tagline {
+    font-size: 1.8em; /* 「コレ見て！」を大きく */
+    display: block;
+    color: var(--public-primary-color); /* 目立つ色に */
+    font-weight: 900; /* 太字を強調 */
+    margin-top: 0px; /* 上のマージンを削除 */
+    text-align: center; /* 中央寄せ */
+    text-shadow: 2px 2px 5px var(--public-shadow-light); /* 影を追加して立体感を出す */
+    animation: pulse 2s infinite; /* アニメーションを追加 (任意) */
+}
+
+/* コレ見て！のためのアニメーション */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* アプリの説明文 */
+.public-container .app-description {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--public-text-color-light);
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+
+/* ヘッダーアクション部分 */
+.public-header-actions {
+    display: flex;
+    justify-content: center; /* ボタンを中央寄せ */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 0; /* 元のパディングをリセット */
+}
+
+.public-header-actions p {
+    display: none; /* 公開ページでは不要な説明文を非表示 */
+}
+
+.public-header-actions .button-group {
+    display: flex;
+    gap: 10px; /* ボタン間の隙間 */
+    flex-wrap: wrap; /* 小さい画面で折り返す */
+    justify-content: center;
+}
+
+/* ボタンのスタイル調整 (共通ボタンの一部を上書き) */
+.public-header-actions .common-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 25px; /* 丸みを強く */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.public-header-actions .back-button {
+    background-color: #8c7e99; /* 落ち着いた色 */
+}
+.public-header-actions .back-button:hover {
+    background-color: #72687c;
+}
+
+.public-header-actions .submit-button {
+    background-color: var(--public-primary-color); /* 温かい赤系 */
+}
+.public-header-actions .submit-button:hover {
+    background-color: #e05c5c;
+}
+
+/* 検索コンテナ */
+.public-search-container {
+    background-color: var(--public-bg-medium); /* 優しいオレンジ系 */
+    padding: 25px;
+    border-radius: 15px; /* 丸みを強く */
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+    margin-bottom: 35px;
+}
+
+.public-search-container input[type="text"] {
+    border-color: var(--public-border-color);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+.public-search-container input[type="text"]:focus {
+    border-color: var(--public-primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
+.public-search-container button[type="submit"] {
+    background-color: var(--public-secondary-color); /* 明るい水色系 */
+}
+.public-search-container button[type="submit"]:hover {
+    background-color: #5bb0e0;
+}
+
+.public-search-container .clear-search {
+    background-color: #a0a0a0; /* 少し暗めのグレー */
+}
+.public-search-container .clear-search:hover {
+    background-color: #888888;
+}
+
+/* ブックマークリスト */
+.public-bookmark-list {
+    gap: 30px; /* カード間の隙間を少し広く */
+}
+
+/* ブックマークカード */
+.public-bookmark-card {
+    background-color: var(--public-card-bg);
+    border: 1px solid var(--public-border-color);
+    border-radius: 15px; /* 角丸を強く */
+    padding: 25px;
+    box-shadow: 0 6px 20px var(--public-shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.public-bookmark-card:hover {
+    transform: translateY(-8px) rotateZ(-1deg); /* 少し回転させる */
+    box-shadow: 0 12px 30px var(--public-shadow-medium);
+}
+
+.public-bookmark-card h3 a {
+    color: var(--public-primary-color);
+    font-size: 1em; /* タイトル少し大きく */
+    font-weight: 700;
+}
+
+.public-bookmark-card .url,
+.public-bookmark-card .description {
+    color: var(--public-text-color-light);
+}
+
+/* タグのスタイル */
+.public-tag {
+    background-color: #b2e0ff; /* 優しい水色系の背景 */
+    color: #333; /* 文字色を濃く */
+    padding: 7px 12px;
+    border-radius: 8px; /* 角丸を強く */
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 日付とユーザー情報 */
+.public-bookmark-actions .date-info {
+    font-size: 0.85em;
+    color: var(--public-text-color-light);
+    gap: 10px; /* アイテム間の隙間 */
+}
+.public-bookmark-actions .date-info i {
+    color: var(--public-secondary-color); /* アイコンの色を強調 */
+    margin-right: 3px;
+}
+.public-bookmark-actions .public-status {
+    background-color: #4CAF50; /* 緑系の公開ステータス */
+    padding: 4px 8px;
+    font-size: 0.75em;
+    border-radius: 5px;
+    margin-left: 8px;
+}
+.public-bookmark-actions .public-status i {
+    color: white; /* アイコンの色を白に */
+}
+
+/* 管理者ボタンのスタイル */
+.public-bookmark-actions .buttons .edit-button {
+    background-color: #9c27b0; /* 紫系 */
+}
+.public-bookmark-actions .buttons .edit-button:hover {
+    background-color: #7b1fa2;
+}
+.public-bookmark-actions .buttons .delete-button {
+    background-color: #e91e63; /* 赤紫系 */
+}
+.public-bookmark-actions .buttons .delete-button:hover {
+    background-color: #c2185b;
+}
+
+/* お気に入りスター（Publicページでは静的表示） */
+.public-star-container {
+    text-align: right;
+    margin-bottom: 10px;
+}
+.public-star-container .star-icon.fas {
+    font-size: 2em;
+    color: #FFD700; /* 金色 */
+}
+
+/* ブックマークがない場合のメッセージ */
+.no-bookmarks-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--public-text-color-light);
+    padding: 40px;
+    background-color: var(--public-card-bg);
+    border-radius: 10px;
+    border: 1px dashed var(--public-border-color);
+    margin-top: 30px;
+}
+
+
+/* レスポンシブ対応の調整 */
+@media (max-width: 768px) {
+    .public-container h1 {
+        font-size: 2.5em;
+    }
+    .public-container .app-tagline {
+        font-size: 0.6em;
+    }
+    .public-container .app-description {
+        font-size: 1em;
+    }
+    .public-header-actions .button-group {
+        flex-direction: column; /* ボタンを縦に並べる */
+        width: 100%;
+    }
+    .public-header-actions .common-button {
+        width: 100%; /* 幅をいっぱいに */
+    }
+    .public-search-container form {
+        flex-direction: column;
+    }
+    .public-search-container input[type="text"],
+    .public-search-container button[type="submit"],
+    .public-search-container .clear-search {
+        width: 100%;
+        margin-top: 10px; /* 隙間調整 */
+    }
+    .public-search-container button[type="submit"] {
+        order: -1; /* 検索ボタンを一番上に */
+    }
+    .public-bookmark-card {
+        padding: 20px;
+    }
+    .public-bookmark-card h3 a {
+        font-size: 1.4em;
+    }
+    .public-tag {
+        font-size: 0.9em;
+    }
+    .public-bookmark-actions .date-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .public-bookmark-actions .public-status {
+        margin-left: 0;
+    }
+}
+@media (max-width: 480px) {
+    .public-container {
+        padding: 20px;
+    }
+    .public-container h1 {
+        font-size: 2em;
+    }
+    .public-container .app-description {
+        font-size: 0.9em;
+    }
+    .public-bookmark-card h3 a {
+        font-size: 1.2em;
+    }
+    .public-tag {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+    .no-bookmarks-message {
+        font-size: 1em;
+        padding: 20px;
+    }
+}
+
+/* ============================================== */
+/* bookmark_detail.php 専用のスタイル */
+/* ============================================== */
+
+.bookmark-detail-container {
+    /* 必要であれば public-container と異なる背景やシャドウを適用 */
+    /* background-color: var(--public-bg-light); */
+}
+
+.detail-card {
+    background-color: var(--public-card-bg);
+    border: 1px solid var(--public-border-color);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 6px 20px var(--public-shadow-light);
+    margin-bottom: 30px;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--public-border-color);
+    padding-bottom: 15px;
+}
+
+.detail-header h2 {
+    font-size: 2em;
+    color: var(--public-primary-color);
+    margin: 0;
+}
+
+.detail-header h2 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.detail-header .star-icon.fas {
+    font-size: 2.5em;
+    color: #FFD700;
+    flex-shrink: 0; /* 縮まないように */
+    margin-left: 15px;
+}
+
+.detail-item {
+    margin-bottom: 15px;
+    color: var(--public-text-color-dark);
+}
+
+.detail-item i {
+    color: var(--public-secondary-color);
+    margin-right: 8px;
+}
+
+.detail-item.url a {
+    color: var(--public-secondary-color); /* URLリンクの色 */
+    word-break: break-all; /* 長いURLがはみ出さないように */
+}
+
+.detail-item.url a:hover {
+    text-decoration: underline;
+}
+
+.detail-item.description {
+    line-height: 1.6;
+    background-color: #f8f8f8; /* 説明文の背景を少し変える */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px dashed #e0e0e0;
+}
+
+.detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.9em;
+    color: var(--public-text-color-light);
+    border-top: 1px solid var(--public-border-color);
+    padding-top: 15px;
+    margin-top: 20px;
+}
+
+.detail-meta span i {
+    color: var(--public-secondary-color);
+    margin-right: 5px;
+}
+
+.detail-admin-actions {
+    display: flex;
+    justify-content: flex-end; /* 右寄せ */
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* スライドショーナビゲーション */
+.detail-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.nav-button {
+    background-color: var(--public-secondary-color);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.5em;
+    border-radius: 50%; /* 丸いボタン */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 60px; /* 正円に近づける */
+    height: 60px; /* 正円に近づける */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-button:hover {
+    background-color: #5bb0e0;
+    transform: translateY(-2px);
+}
+
+.nav-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 一覧に戻るボタンの調整 */
+.detail-navigation .back-button {
+    margin: 0 20px; /* 左右のボタンとの間隔 */
+}
+
+/* レスポンシブ対応の調整 (既存の @media rules に追加または修正) */
+@media (max-width: 768px) {
+    .detail-card {
+        padding: 20px;
+    }
+    .detail-header h2 {
+        font-size: 1.8em;
+    }
+    .detail-header .star-icon.fas {
+        font-size: 2em;
+    }
+    .detail-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .detail-admin-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .detail-admin-actions .common-button {
+        width: 100%;
+    }
+    .detail-navigation {
+        flex-direction: row; /* 横並びを維持しつつ、必要に応じて中央寄せ */
+        justify-content: center;
+        gap: 15px;
+    }
+    .nav-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+    .detail-navigation .back-button {
+        flex-grow: 1; /* 中央のボタンが広がる */
+        text-align: center;
+        margin: 0 5px;
+    }
+}
+@media (max-width: 480px) {
+    .detail-header h2 {
+        font-size: 1.5em;
+    }
+    .detail-item.description {
+        padding: 10px;
+    }
+    .detail-meta {
+        font-size: 0.8em;
+    }
+}
